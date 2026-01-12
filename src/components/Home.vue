@@ -1,6 +1,7 @@
 <script>
 import { getAllProducts } from "@/services/productService";
 import ButtonView from "./UI/ButtonView.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "HomeView",
@@ -10,14 +11,16 @@ export default {
   data() {
     return {
       products: [],
+      showModal: false
     };
   },
   methods: {
+    ...mapActions(["addProductToCart"]), // 2. Map the action
     async fetchProducts() {
       try {
         // 'data' is now the actual object returned from the service
         const data = await getAllProducts();
-        console.log("component resp:", data);
+        // console.log("component resp:", data);
 
         // DummyJSON returns an object with a 'products' array
         this.products = data.products || [];
@@ -25,6 +28,9 @@ export default {
         console.error("Component error:", error);
       }
     },
+    openModal(){
+      this.showModal=!this.showModal;
+    }
   },
   mounted() {
     this.fetchProducts();
@@ -44,7 +50,7 @@ export default {
           <p class="meal-item-description">{{ product.description }}</p>
           <p class="meal-item-price">${{ product.price }}</p>
           <div class="meal-item-actions">
-            <ButtonView children="Add to Cart"></ButtonView>
+            <ButtonView children="Add to Cart" @click.native="addProductToCart(product)"></ButtonView>
           </div>
         </article>
       </li>

@@ -1,19 +1,19 @@
 <template>
   <div id="">
-    <HeaderView />
+    <HeaderLayout />
     <!-- <HelloWorld /> -->
   </div>
 </template>
 
 <script>
-import HeaderView from './components/HeaderView.vue';
+import HeaderLayout from './components/Header.vue';
 // import HelloWorld from './components/HomeView.vue'
 
 export default {
   name: 'App',
   components: {
     // HelloWorld,
-    HeaderView
+    HeaderLayout
   }
 }
 </script>
